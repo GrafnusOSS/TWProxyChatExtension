@@ -3,20 +3,6 @@ plugins {
     id("com.typewritermc.module-plugin") version "1.0.0"
 }
 
-repositories {
-    mavenCentral()
-    maven {
-        name = "papermc"
-        url = uri("https://repo.papermc.io/repository/maven-public/")
-    }
-    maven { url = uri("https://jitpack.io/") }
-}
-
-dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
-    compileOnly("com.github.gabber235:typewriter:develop-SNAPSHOT")
-}
-
 typewriter {
     engine {
         version = "0.6.0"
