@@ -1,23 +1,24 @@
 import com.google.common.io.ByteArrayDataInput
+import com.google.common.io.ByteArrayDataOutput
 import com.google.common.io.ByteStreams
+import com.typewritermc.engine.paper.interaction.ChatHistoryHandler
+import net.kyori.adventure.text.Component
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
-import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.messaging.PluginMessageListener
-import org.koin.java.KoinJavaComponent
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 import util.TWClassHolder
 
-class ChannelHandler : PluginMessageListener {
-
+class ChannelHandler : PluginMessageListener, KoinComponent {
+    private val chatHistoryHandler: ChatHistoryHandler by inject()
 
     fun initialize() {
-        Bukkit.getServer().messenger.registerOutgoingPluginChannel(TWClassHolder.get(), "PlayerChatChanel")
         Bukkit.getServer().messenger.registerIncomingPluginChannel(TWClassHolder.get(), "PlayerChatChanel", this)
-
     }
 
     fun destroy() {
-        Bukkit.getServer().messenger.unregisterOutgoingPluginChannel(TWClassHolder.get())
+        Bukkit.getServer().messenger.unregisterIncomingPluginChannel(TWClassHolder.get())
     }
 
     override fun onPluginMessageReceived(channel: String, player: Player, message: ByteArray?) {
@@ -30,7 +31,8 @@ class ChannelHandler : PluginMessageListener {
         val input: ByteArrayDataInput = ByteStreams.newDataInput(message)
         val subChannel: String = input.readUTF()
         if (subChannel.equals("ProxyChat")) {
-            TWClassHolder.get()
+            val chatHistory = chatHistoryHandler.getHistory(player.uniqueId)
+            chatHistory.addMessage(Component.text(input.readUTF()))
         }
     }
 
