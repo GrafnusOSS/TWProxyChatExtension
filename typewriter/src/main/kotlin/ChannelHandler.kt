@@ -1,5 +1,4 @@
 import com.google.common.io.ByteArrayDataInput
-import com.google.common.io.ByteArrayDataOutput
 import com.google.common.io.ByteStreams
 import com.typewritermc.engine.paper.interaction.ChatHistoryHandler
 import net.kyori.adventure.text.Component
