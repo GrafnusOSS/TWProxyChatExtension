@@ -4,10 +4,6 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
         maven("https://maven.typewritermc.com/beta")
-        maven {
-            name = "papermc"
-            url = uri("https://repo.papermc.io/repository/maven-public/")
-        }
     }
 }
 

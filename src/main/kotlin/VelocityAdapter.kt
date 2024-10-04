@@ -6,8 +6,6 @@ import org.bukkit.plugin.Plugin
 @Initializer
 object ProxyChatInitializer : Initializable {
 
-    public var TypeWriterPlugin: Plugin = null
-
     override fun initialize() {
         // Do something when the extension is initialized
 
