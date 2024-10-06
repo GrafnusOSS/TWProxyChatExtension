@@ -29,6 +29,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compileOnly("com.github.retrooper:packetevents-velocity:2.5.0")
     api("io.insert-koin:koin-core:3.5.6")
+    implementation("com.google.code.gson:gson:2.8.5")
 }
 
 val targetJavaVersion = 21
