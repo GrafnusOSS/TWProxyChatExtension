@@ -55,6 +55,10 @@ class ChannelHandler : PluginMessageListener, KoinComponent {
 
         val field = chatHistory.javaClass.declaredFields.toList().filter { it.name == "messages" }.first()
         field.isAccessible = true
+        
+        // This cannot be checked easily at runtime.
+        // The  private property is confirmed to be this type when it was placed here.
+        @SuppressWarnings("UNCHECKED_CAST")
         val queue = field.get(chatHistory) as ConcurrentLinkedQueue<OldMessage>
 
         //val queue: ConcurrentLinkedQueue<OldMessage> = chatHistory.getPrivateProperty("messages") as ConcurrentLinkedQueue<OldMessage>
