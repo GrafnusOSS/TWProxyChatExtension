@@ -16,24 +16,6 @@ import org.koin.core.component.inject
 class ChatMessageListener: PacketListener, KoinComponent {
 
     private val handler: MessagingHandler by inject()
-//    private val plugin: VelocityChat by inject()
-//
-//    override fun onPacketReceive(event: PacketReceiveEvent?) {
-//        if (event == null) return
-//        plugin.logger.info("Received Packet ${event.packetType.toString()}")
-//
-//        if (event.packetType == PacketType.Play.Server.CHAT_MESSAGE) {
-//            plugin.logger.info("Received Packet ${event.packetType.toString()}")
-//        }
-//
-//        if (event.packetType == PacketType.Play.Server.SYSTEM_CHAT_MESSAGE) {
-//            plugin.logger.info("Received Packet ${event.packetType.toString()}")
-//        }
-//        if (event.packetType == PacketType.Play.Client.CHAT_MESSAGE) {
-//            plugin.logger.info("Received Packet ${event.packetType.toString()}")
-//        }
-//
-//    }
 
     // When the server sends a message to the player
     override fun onPacketSend(event: PacketSendEvent?) {
@@ -44,6 +26,7 @@ class ChatMessageListener: PacketListener, KoinComponent {
 
         handler.handleNewMessage(event.user.uuid, component)
     }
+
     private fun findMessage(event: PacketSendEvent): Component? {
         return when (event.packetType) {
             PacketType.Play.Server.CHAT_MESSAGE -> {

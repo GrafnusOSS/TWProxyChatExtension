@@ -31,7 +31,6 @@ class ChannelHandler : PluginMessageListener, KoinComponent {
     }
 
     override fun onPluginMessageReceived(channel: String, player: Player, message: ByteArray?) {
-        logger.info("Channel used: $channel")
         if (message == null) {
             return
         }
@@ -40,36 +39,16 @@ class ChannelHandler : PluginMessageListener, KoinComponent {
         if (subChannel.equals("ProxyChat")) {
             val messageStr: String = input.readUTF()
             val messageComp: Component = JSONComponentSerializer.json().deserialize(messageStr)
-            plugin.logger.info("Received Proxy Chat Message:")
-            plugin.logger.info("JSON: $messageStr")
-            plugin.logger.info("========================")
-            plugin.logger.info("Comp: $messageComp")
 
             insertChatMessageIfNotPresent(player, messageComp)
-            TODO("Only unique messages are saved")
         }
     }
 
     private fun insertChatMessageIfNotPresent(player: Player, chatMessage: Component) {
         val chatHistory = chatHistoryHandler.getHistory(player.uniqueId)
 
-        val field = chatHistory.javaClass.declaredFields.toList().filter { it.name == "messages" }.first()
-        field.isAccessible = true
-        
-        // This cannot be checked easily at runtime.
-        // The  private property is confirmed to be this type when it was placed here.
-        @SuppressWarnings("UNCHECKED_CAST")
-        val queue = field.get(chatHistory) as ConcurrentLinkedQueue<OldMessage>
-
-        //val queue: ConcurrentLinkedQueue<OldMessage> = chatHistory.getPrivateProperty("messages") as ConcurrentLinkedQueue<OldMessage>
-
-        val list: List<OldMessage> = queue.toList()
-
-        if (!list.contains(OldMessage(chatMessage))) {
+        if(!chatHistory.hasMessage(chatMessage)) {
             chatHistory.addMessage(chatMessage)
-            plugin.logger.info("Chat Message (${chatMessage.plainText()}) has been saved!")
-        } else {
-            plugin.logger.info("Chat Message (${chatMessage.plainText()}) has not been saved!")
         }
     }
 

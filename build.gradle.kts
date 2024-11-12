@@ -8,6 +8,10 @@ allprojects {
     }
 }
 
+tasks.jar {
+    enabled = false
+}
+
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
 }
