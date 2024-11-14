@@ -43,12 +43,7 @@ class MessagingHandler: KoinComponent {
         val data: ByteArrayDataOutput = ByteStreams.newDataOutput()
         data.writeUTF("ProxyChat")
 
-        //var gson: Gson = GsonBuilder().excludeFieldsWithoutExposeAnnotation().excludeFieldsWithModifiers(TRANSIENT).create()
-
         val jsonMessage = JSONComponentSerializer.json().serialize(message)
-//        plugin.logger.info("Sending Message:")
-//        plugin.logger.info("Original: $message")
-//        plugin.logger.info("Original: $jsonMessage")
         data.writeUTF(jsonMessage)
 
 
