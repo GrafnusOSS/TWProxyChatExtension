@@ -3,10 +3,13 @@ plugins {
     id("com.typewritermc.module-plugin") version "1.0.0"
 }
 
+group = "de.GrafnusOSS"
+version = "1.0.0"
+
 typewriter {
     engine {
-        version = "0.6.0"
-        channel = com.typewritermc.moduleplugin.ReleaseChannel.BETA
+        version = "0.7.0"
+        //channel = com.typewritermc.moduleplugin.ReleaseChannel.BETA
     }
     namespace = "grafnusoss"
 
